@@ -2,10 +2,11 @@ import React from "react";
 import './ExpensesFilter.scss';
 
 const ExpensesFilter = (props) => {
+    
     const filterHandler = (e) => {
         props.onChangeFilterHandler(e.target.value);
     }
-    console.log(props);
+
     return (
         <div className="expenses-filter">
             <div className="expenses-filter__control">
