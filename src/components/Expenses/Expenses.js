@@ -10,27 +10,30 @@ const Expenses = (props) => {
   const filterChangedHandler = (year) => {
     setYearFiltered(year);
   };
-  
+
+  const filteredExpenses = props.expenses.filter((expense) => {
+    return expense.date.getFullYear() === parseInt(yearFiltered);
+  });
+
   return (
     <Card className="expenses">
       <ExpensesFilter
         selected={yearFiltered}
         onChangeFilterHandler={filterChangedHandler}
       />
-      {props.expenses
-        .filter((expense) => {
-          return expense.date.getFullYear() === parseInt(yearFiltered);
-        })
-        .map((expense, index) => {
-          return (
-            <ExpenseItem
-              key={expense.id}
-              title={expense.title}
-              amount={expense.amount}
-              date={expense.date}
-            />
-          );
-        })}
+      {!filteredExpenses.length && (
+        <p style={{ color: "white" }}>No Expenses Found.</p>
+      )}
+      {filteredExpenses.map((expense) => {
+        return (
+          <ExpenseItem
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        );
+      })}
     </Card>
   );
 };
