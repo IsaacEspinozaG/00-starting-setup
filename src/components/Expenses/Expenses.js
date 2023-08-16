@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Card from "../UI/Card";
-import ExpenseItem from "./ExpenseItem.js";
+import ExpensesList from "./ExpensesList";
 import ExpensesFilter from "../ExpensesFilter/ExpensesFilter";
 import "./Expenses.scss";
 
@@ -16,25 +16,15 @@ const Expenses = (props) => {
   });
 
   return (
-    <Card className="expenses">
-      <ExpensesFilter
-        selected={yearFiltered}
-        onChangeFilterHandler={filterChangedHandler}
-      />
-      {!filteredExpenses.length && (
-        <p style={{ color: "white" }}>No Expenses Found.</p>
-      )}
-      {filteredExpenses.map((expense) => {
-        return (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        );
-      })}
-    </Card>
+    <li>
+      <Card className="expenses">
+        <ExpensesFilter
+          selected={yearFiltered}
+          onChangeFilterHandler={filterChangedHandler}
+        />
+        <ExpensesList expenses={filteredExpenses} />
+      </Card>
+    </li>
   );
 };
 export default Expenses;
